@@ -1,0 +1,19 @@
+.button-1 {
+    height: 34px;
+    border-radius: 8px;
+    background-color: white;
+    border-color: black;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    padding: 5px;
+}
+.button-1:hover {
+    background-color: rgb(129, 129, 129);
+    color: white;
+}
+.search{
+    border-radius: 8px;
+    height: 40px;
+    margin-top: 8px;
+}

@@ -1,0 +1,82 @@
+﻿@model WebApplication1.Models.Order
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Order</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.orderDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.orderDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.shipping)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.shipping)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.totalPay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.totalPay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cart.cartId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cart.cartId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.paymentType1.paymentTypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.paymentType1.paymentTypeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Users.username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Users.username)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.orderID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,264 @@
+﻿@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model WebApplication1.ViewModel.FilterViewModel
+@using Newtonsoft.Json;
+@using PagedList.Mvc;
+<link href="~/Content/filter.css" rel="stylesheet" type="text/css">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet" href="https://fontawesome.com/v4.7.0/assets/font-awesome/css/font-awesome.css">
+<form id="" action="@Url.Action("FilteredProducts", "AllProduct")" class="form-group" method="post">
+    <div class="container">
+        <div class="row">
+            <aside class="col-md-3">
+
+                <div class="card">
+
+                    <article class="filter-group">
+
+                        <header class="card-header">
+                            <a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
+                                <i class="icon-control fa fa-chevron-down"></i>
+                                <h6 class="title" style="margin-top: 2px">Giới tính</h6>
+                            </a>
+                        </header>
+                        <div class="filter-content collapse show" id="collapse_1" style="">
+                            <div class="card-body">
+
+
+                                <ul class="list-menu">
+                                    <li>
+                                        <label class="custom-control custom-checkbox">
+                                            @{
+                                                if (@Model.SexCheck.Contains("Nam"))
+                                                {
+                                                    <input type="checkbox" checked name="CheckboxSex" value="Nam" class="custom-control-input">
+                                                }
+
+                                                else
+                                                {
+                                                    <input type="checkbox" name="CheckboxSex" value="Nam" class="custom-control-input">
+                                                }
+
+                                            }
+
+
+                                            <div class="custom-control-label">
+                                                Nam
+                                            </div>
+                                        </label>
+                                        <label class="custom-control custom-checkbox">
+                                            @{
+                                                if (@Model.SexCheck.Contains("Nữ"))
+                                                {
+                                                    <input type="checkbox" checked name="CheckboxSex" value="Nữ" class="custom-control-input">
+                                                }
+
+                                                else
+                                                {
+                                                    <input type="checkbox" name="CheckboxSex" value="Nữ" class="custom-control-input">
+                                                }
+
+                                            }
+                                            <div class="custom-control-label">
+                                                Nữ
+                                            </div>
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div> <!-- card-body.// -->
+                        </div>
+                    </article>
+
+
+
+                    <!-- filter-group  .// -->
+                    <article class="filter-group">
+                        <header class="card-header">
+                            <a href="#" data-toggle="collapse" data-target="#collapse_2" aria-expanded="true" class="">
+                                <i class="icon-control fa fa-chevron-down"></i>
+                                <h6 class="title">Hãng </h6>
+                            </a>
+                        </header>
+                        <div class="filter-content collapse show" id="collapse_2" style="">
+                            <div id="categoryArea">
+                                <div class="card-body">
+                                    @{
+                                        foreach (var cate in Model.ProductViewModel.Categories)
+                                        {
+
+                                            <label class="custom-control custom-checkbox">
+                                                @{
+                                                    if (Model.CategoryCheckIds.Contains(cate.categoryId))
+                                                    {
+                                                        <input class="custom-control-input" type="checkbox" name="CheckboxCate" value="@cate.categoryId" checked>
+                                                    }
+                                                    else
+                                                    {
+                                                        <input class="custom-control-input" type="checkbox" name="CheckboxCate" value="@cate.categoryId">
+                                                    }
+                                                }
+
+                                                <div class="custom-control-label">
+                                                    @cate.categoryName
+                                                    <b class="badge badge-pill badge-light float-right">@cate.Products.Count</b>
+                                                </div>
+                                            </label>
+
+                                        }
+                                    }
+                                </div>
+
+                            </div> <!-- card-body.// -->
+                        </div>
+                    </article> <!-- filter-group .// -->
+                    <article class="filter-group">
+                        <header class="card-header">
+                            <a href="#" data-toggle="collapse" data-target="#collapse_3" aria-expanded="true" class="">
+                                <i class="icon-control fa fa-chevron-down"></i>
+                                <h6 class="title">Khoản giá</h6>
+                            </a>
+                        </header>
+                        <div class="filter-content collapse show" id="collapse_3" style="">
+                            <div class="card-body">
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Min</label>
+                                        <input name="minprice" value="@Model.MinPrice" class="form-control" placeholder="$0" type="number">
+                                    </div>
+                                    <div class="form-group text-right col-md-6">
+                                        <label>Max</label>
+                                        <input name="maxprice" value="@Model.MaximumPrice" class="form-control" placeholder="$1,0000" type="number">
+                                    </div>
+
+                                </div> <!-- form-row.// -->
+
+                            </div><!-- card-body.// -->
+                        </div>
+                    </article> <!-- filter-group .// -->
+                    <article class="filter-group">
+                        <header class="card-header">
+                            <a href="#" data-toggle="collapse" data-target="#collapse_4" aria-expanded="true" class="">
+                                <i class="icon-control fa fa-chevron-down"></i>
+                                <h6 class="title">Sizes </h6>
+                            </a>
+                        </header>
+                        <div class="filter-content collapse show" id="collapse_4" style="">
+                            <div class="card-body">
+                                <label class="checkbox-btn">
+                                    <input type="checkbox" name="sizeCheckBox">
+                                    <span class="btn btn-light"> XS </span>
+                                </label>
+
+                                <label class="checkbox-btn">
+                                    <input type="checkbox" name="sizeCheckBox">
+                                    <span class="btn btn-light"> SM </span>
+                                </label>
+
+                                <label class="checkbox-btn">
+                                    <input type="checkbox" name="sizeCheckBox">
+                                    <span class="btn btn-light"> LG </span>
+                                </label>
+
+                                <label class="checkbox-btn">
+                                    <input type="checkbox" name="sizeCheckBox">
+                                    <span class="btn btn-light"> XXL </span>
+                                </label>
+                                <button class="btn btn-block btn-primary">Apply</button>
+                            </div><!-- card-body.// -->
+
+                        </div>
+                    </article> <!-- filter-group .// -->
+
+
+                </div> <!-- card.// -->
+
+            </aside>
+            <main class="col-md-9">
+
+                <header class="border-bottom mb-4 pb-3">
+                    <div class="form-inline">
+                        <div class="mr-md-auto" style="margin-top: 10px">
+                            <span style="float:left; margin-top:17px"> Tên sản phẩm </span>
+                            <div class="form-group" style="height:50px; ">
+                                <form action="@Url.Action("FilteredProducts", "AllProduct");" class="form-group" method="post">
+                                    <input type="text" style="width: 500px; margin-left:10px"
+                                           value="@Model.SearchString"
+                                           placeholder="Search" name="SearchString">
+                                </form>
+                            </div>
+
+
+                        </div>
+
+                        <span class="mr-md-auto" style="margin-left:100px"> Sorted By </span>
+                        <select name="sortBy" class="mr-2 form-control">
+                            <option value="0">Latest items</option>
+                            <option value="1">Trending</optionvalue="0">
+                            <option value="2">Most Popular</option>
+                            <option value="3">Cheapest</option>
+                        </select>
+
+                    </div>
+                    <div class="row">
+                        @{ foreach (var product in Model.ProductViewModel.ProductPagedList)
+                            {
+
+
+                                <div class="col-md-4">
+                                    <figure class="card card-product-grid" style="height:350px">
+                                        <div class="img-wrap" style="height:250px; display:flex">
+                                            <!-- <span class="badge badge-danger"> NEW </span> -->
+                                            @if (product.imagesProducts.Count != 0)
+                                            {
+                                                <img src="~/images/products/productsFromDB/@product.imagesProducts.FirstOrDefault().images" class="img-fluid" style="margin-top:auto; margin-bottom:auto">
+                                            }
+                                            else
+                                            {
+                                                <a href="@Url.Action("productDetail", "Home", new { productID = @product.productId })" class="prod-img">
+                                                    <img class="img-fluid" alt="Free html5 bootstrap 4 template">
+                                                </a>
+                                            }
+                                            <a class="btn-overlay" href="@Url.Action("productDetail", "Home", new { productID = product.productId })"><i class="fa fa-search-plus"></i> Quick view</a>
+                                        </div> <!-- img-wrap.// -->
+                                        <figcaption class="info-wrap">
+                                            <div class="fix-height">
+                                                <a href="#" class="title">@product.productName</a>
+                                                <div class="price-wrap mt-2">
+                                                    <span class="price">$ @product.price</span>
+                                                    <!-- <del class="price-old">$1980</del> -->
+                                                </div> <!-- price-wrap.// -->
+                                            </div>
+                                            <a href="#" class="btn btn-block btn-primary">Add to cart </a>
+                                        </figcaption>
+                                    </figure>
+                                </div> <!-- col.// -->
+                            }
+
+                        }
+                        @{ 
+                            var a = new WebApplication1.ViewModel.FilterViewModel();
+                            a.CategoryCheckIds = Model.CategoryCheckIds;
+                            a.MaximumPrice = Model.MaximumPrice;
+                            a.MinPrice = Model.MinPrice;
+                            a.ProductViewModel = Model.ProductViewModel;
+                            a.SexCheck = Model.SexCheck;
+                        }
+                    </div> <!-- row end.// -->
+                    Trang @(Model.ProductViewModel.ProductPagedList.PageCount < Model.ProductViewModel.ProductPagedList.PageNumber ? 0 : Model.ProductViewModel.ProductPagedList.PageNumber) / @Model.ProductViewModel.ProductPagedList.PageCount
+
+                    @Html.PagedListPager(Model.ProductViewModel.ProductPagedList, page => Url.Action("Pagination", "AllProduct", new {page = page,  modela = JsonConvert.SerializeObject(Model) }))
+
+                    <!-- Kết thúc -->
+
+            </main>
+        </div>
+    </div>
+</form>
+

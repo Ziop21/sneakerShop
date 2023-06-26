@@ -1,0 +1,22 @@
+﻿@model WebApplication1.ViewModel.FilterViewModel
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+@{//
+    //<link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-css">
+    //
+}
+
+
+@{var filterviewmodel = new WebApplication1.ViewModel.FilterViewModel();
+    filterviewmodel.CategoryCheckIds = Model.CategoryCheckIds;
+    filterviewmodel.MaximumPrice = Model.MaximumPrice;
+    filterviewmodel.SearchString = Model.SearchString;
+    filterviewmodel.MinPrice = Model.MinPrice;
+    filterviewmodel.ProductViewModel = Model.ProductViewModel;
+    filterviewmodel.SexCheck = Model.SexCheck;
+    Html.RenderPartial("FilterProducts", filterviewmodel);
+}
+
